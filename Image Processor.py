@@ -13,6 +13,8 @@ import numpy as np
 
 #read
 im1 = cv2.imread("photo_1.jpg")
+#im1 = Image.open("photo_1.jpg").convert('LA')
+#im1 = np.asarray(im1)[:,:,0]
 
 # grayscaling and gaussian filtering
 im_gray1 = cv2.cvtColor(im1, cv2.COLOR_BGR2GRAY)
@@ -54,10 +56,17 @@ for ctr in ctrs:
     #resizing
     img4 = cv2.resize(img3, (28, 28), interpolation = cv2.INTER_AREA)
     
+    cv2.imwrite('D:\\NITK\\Python\\crop\\temp\\' + 'roi.jpg', img4)
+    
+    fim = Image.open("D:\\NITK\\Python\\crop\\temp\\roi.jpg").convert('LA')
+    fim = np.asarray(fim)[:,:,0]
+    
+    print(fim.shape)
+    
     #writetime
-    cv2.imwrite('D:\\NITK\\Python\\crop\\res\\' + str(idx) + '.jpg', img4)
+    cv2.imwrite('D:\\NITK\\Python\\crop\\res\\' + str(idx) + '.jpg', fim)
     
     #showtime
-    cv2.imshow("Resulting Image with Rectangular ROIs", img4)
+    cv2.imshow("Resulting Image with Rectangular ROIs", fim)
     cv2.waitKey()
     cv2.destroyAllWindows()
